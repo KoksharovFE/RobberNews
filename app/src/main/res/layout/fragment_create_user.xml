@@ -1,0 +1,253 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="ru.astralight.koksharov.robbernews.LocalAdmin.CreateUserFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbarStyle="insideOverlay">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_weight="1"
+                android:text="USER fragment" />
+
+            <TabHost xmlns:android="http://schemas.android.com/apk/res/android"
+                android:id="@+id/create_user_tabhost"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/textView"
+                android:layout_gravity="center_horizontal">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <TabWidget
+                        android:id="@android:id/tabs"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/fab_margin"></TabWidget>
+
+                    <FrameLayout
+                        android:id="@android:id/tabcontent"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <LinearLayout
+                            android:id="@+id/create_user_credetials_tab"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/createUserNameText"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentLeft="true"
+                                android:layout_alignParentStart="true"
+                                android:layout_below="@+id/textView"
+                                android:text="@string/create_user_name_text" />
+
+                            <EditText
+                                android:id="@+id/createUserNameEdit"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentLeft="true"
+                                android:layout_alignParentStart="true"
+                                android:layout_below="@+id/createUserNameText"
+                                android:contentDescription="@string/create_user_name_text"
+                                android:ems="10"
+                                android:inputType="textPersonName"
+                                android:textSize="14sp"
+                                tools:text="@string/create_user_name_text" />
+
+                            <TextView
+                                android:id="@+id/createUserSurnameText"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentLeft="true"
+                                android:layout_alignParentStart="true"
+                                android:layout_below="@+id/createUserNameEdit"
+                                android:text="@string/create_user_surname_text" />
+
+                            <EditText
+                                android:id="@+id/createUserSurnameEdit"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentLeft="true"
+                                android:layout_alignParentStart="true"
+                                android:layout_below="@+id/createUserSurnameText"
+                                android:contentDescription="@string/create_user_surname_text"
+                                android:ems="10"
+                                android:inputType="textPersonName"
+                                android:textSize="14sp"
+                                tools:text="@string/create_user_surname_text" />
+
+                            <TextView
+                                android:id="@+id/createUserPasswordText"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentLeft="true"
+                                android:layout_alignParentStart="true"
+                                android:layout_below="@+id/createUserSurnameEdit"
+                                android:text="@string/create_user_password_text" />
+
+                            <EditText
+                                android:id="@+id/createUserPasswordEdit"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentLeft="true"
+                                android:layout_alignParentStart="true"
+                                android:layout_below="@+id/createUserPasswordText"
+                                android:contentDescription="@string/create_user_password_text"
+                                android:ems="10"
+                                android:inputType="textPassword"
+                                tools:text="@string/create_user_password_text" />
+
+                            <TextView
+                                android:id="@+id/createUserAccessModeText"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentLeft="true"
+                                android:layout_alignParentStart="true"
+                                android:layout_below="@+id/createUserSurnameEdit"
+                                android:text="@string/create_user_access_mode_text" />
+
+                            <Spinner
+                                android:id="@+id/createUserAccessModeSpinner"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/create_user_addional_tab"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical">
+
+                            <ImageView
+                                android:id="@+id/imageView"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentEnd="true"
+                                android:layout_alignParentRight="true"
+                                android:layout_alignTop="@+id/createUserPasswordEdit"
+                                app:srcCompat="@mipmap/ic_launcher" />
+
+                            <TextView
+                                android:id="@+id/createUserAvatarText"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentEnd="true"
+                                android:layout_alignParentLeft="true"
+                                android:layout_alignParentRight="true"
+                                android:layout_alignParentStart="true"
+                                android:layout_below="@+id/createUserTimePicker"
+                                android:text="@string/create_unit_avatar_text" />
+
+                            <EditText
+                                android:id="@+id/createUserAvatarEdit"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentBottom="true"
+                                android:layout_alignParentStart="true"
+                                android:contentDescription="@string/create_user_avatar_url"
+                                android:ems="10"
+                                android:inputType="textPersonName"
+                                android:textSize="14sp"
+                                tools:text="@string/create_user_avatar_url" />
+
+                            <TextView
+                                android:id="@+id/createUserAboutText"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentBottom="true"
+                                android:layout_alignParentEnd="true"
+                                android:layout_alignParentLeft="true"
+                                android:layout_alignParentRight="true"
+                                android:layout_alignParentStart="true"
+                                android:layout_weight="1"
+                                android:text="@string/create_user_about_text" />
+
+                            <EditText
+                                android:id="@+id/createUserAboutEdit"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentBottom="true"
+                                android:layout_alignParentLeft="true"
+                                android:layout_alignParentStart="true"
+                                android:contentDescription="@string/create_user_avatar_url"
+                                android:ems="10"
+                                android:gravity="top|left"
+                                android:inputType="textMultiLine"
+                                android:lines="8"
+                                android:maxLines="10"
+                                android:minLines="6"
+                                android:scrollbars="vertical"
+                                android:textSize="14sp"
+                                tools:text="@string/create_user_avatar_url" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/create_user_datetime_tab"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/createUserRegDateText"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentLeft="true"
+                                android:layout_alignParentStart="true"
+                                android:layout_below="@+id/createUserPasswordEdit"
+                                android:text="@string/create_user_reg_date_text" />
+
+                            <DatePicker
+                                android:id="@+id/createUserDatePicker"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentLeft="true"
+                                android:layout_alignParentStart="true"
+                                android:layout_below="@+id/createUserRegDateText"
+                                android:hapticFeedbackEnabled="true"
+                                android:headerBackground="@color/colorPrimary" />
+
+                            <TimePicker
+                                android:id="@+id/createUserTimePicker"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentLeft="true"
+                                android:layout_alignParentStart="true"
+                                android:layout_below="@+id/createUserDatePicker"
+                                android:headerBackground="@color/colorPrimaryDark" />
+
+                        </LinearLayout>
+                    </FrameLayout>
+                </LinearLayout>
+            </TabHost>
+
+        </RelativeLayout>
+    </ScrollView>
+
+</LinearLayout>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">RobberNews</string>
+    <string name="DBFill">Заполни БД</string>
+    <string name="Table">Таблица</string>
+    <string name="action_settings">Настройки</string>
+    <string name="dummy_button">Заглушка</string>
+    <string name="dummy_content">Заглушка{...}</string>
+    <string name="title_activity_local_admin">Локальный Администратор</string>
+    <string name="chose">Выбери</string>
+    <string name="create_user_name_text">Имя</string>
+    <string name="create_user_surname_text">Фамилия</string>
+    <string name="create_user_password_text" >Пароль</string>
+    <string name="create_user_reg_date_text"><![CDATA[Дата && Время]]></string>
+    <string name="create_unit_avatar_text">Аватар</string>
+    <string name="create_user_about_text">О себе</string>
+    <string name="create_user_reg_date_text_date" >Дата</string>
+    <string name="create_user_reg_date_text_time" >Время</string>
+    <string name="create_user_avatar_url">http://...</string>
+    <string name="Credentials">Логин и пароль</string>
+    <string name="addional_info">Дополнительная информация</string>
+    <string name="datetime">Дата и время</string>
+    <string name="chose_fragment">Выбери фрагмент</string>
+    <string name="create_article_title_text">Title</string>
+    <string name="create_user_access_mode_text" >Права доступа</string>
+    <string name="create_article_tag_cloud">Tag Cloud</string>
+    <string name="Author">Author</string>
+</resources>

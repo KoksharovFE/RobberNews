@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="ru.astralight.koksharov.robbernews.LocalAdmin.LocalAdminActivity">
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay"
+        android:id="@+id/appBarLayout">
+
+        <TextView
+            android:id="@+id/chose_common_text_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/chose" />
+
+        <Spinner
+            android:id="@+id/choose_spinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/local_admin_add"
+            android:layout_width="wrap_content"
+            android:layout_height="77dp"
+            android:layout_gravity="center_vertical|center_horizontal"
+            android:layout_marginBottom="@dimen/fab_margin"
+            android:layout_marginRight="@dimen/fab_margin"
+            android:layout_marginTop="@dimen/fab_margin"
+            android:layout_weight="1"
+            app:backgroundTint="@android:color/black"
+            app:layout_anchor="@+id/include"
+            app:layout_anchorGravity="top|center_horizontal"
+            app:srcCompat="@android:drawable/btn_plus" />
+    </android.support.design.widget.AppBarLayout>
+
+    <FrameLayout
+        android:id="@+id/chose_frame_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/appBarLayout">
+
+        <fragment
+            android:id="@+id/user_fragment"
+            android:name="ru.astralight.koksharov.robbernews.LocalAdmin.CreateUserFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:layout="@layout/fragment_create_user" />
+
+        <fragment
+            android:id="@+id/article_fragment"
+            android:name="ru.astralight.koksharov.robbernews.LocalAdmin.CreateArticleFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:layout="@layout/fragment_create_article" />
+
+        <fragment
+            android:id="@+id/article_comment_fragment"
+            android:name="ru.astralight.koksharov.robbernews.LocalAdmin.CreateArticleCommentFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:layout="@layout/fragment_create_article_comment" />
+
+        <fragment
+            android:id="@+id/forum_article_fragment"
+            android:name="ru.astralight.koksharov.robbernews.LocalAdmin.CreateForumArticleFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:layout="@layout/fragment_create_forum_article" />
+
+        <fragment
+            android:id="@+id/forum_article_comment_fragment"
+            android:name="ru.astralight.koksharov.robbernews.LocalAdmin.CreateForumArticleCommentFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:layout="@layout/fragment_create_forum_article_comment" />
+
+        <!--<fragment-->
+            <!--android:id="@+id/la_user_fragment"-->
+            <!--android:name="ru.astralight.koksharov.robbernews.LocalAdmin.CreateUserFragment"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--tools:layout="@layout/fragment_create_user" />-->
+    </FrameLayout>
+
+</RelativeLayout>

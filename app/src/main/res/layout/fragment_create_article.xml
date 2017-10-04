@@ -1,0 +1,241 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="ru.astralight.koksharov.robbernews.LocalAdmin.CreateArticleFragment">
+
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:scrollbarStyle="insideOverlay">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:text="Article fragment" />
+
+        <TabHost xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/create_article_tabhost"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/textView"
+            android:layout_gravity="center_horizontal">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <TabWidget
+                    android:id="@android:id/tabs"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/fab_margin" />
+
+                <FrameLayout
+                    android:id="@android:id/tabcontent"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <LinearLayout
+                        android:id="@+id/create_article_main_tab"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/createArticleTitleText"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentLeft="true"
+                            android:layout_alignParentStart="true"
+                            android:layout_below="@+id/textView"
+                            android:text="@string/create_article_title_text" />
+
+                        <EditText
+                            android:id="@+id/createArticleTitleEdit"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentLeft="true"
+                            android:layout_alignParentStart="true"
+                            android:layout_below="@+id/createUserNameText"
+                            android:contentDescription="@string/create_article_title_text"
+                            android:ems="10"
+                            android:inputType="textPersonName"
+                            android:textSize="14sp"
+                            tools:text="@string/create_article_title_text" />
+
+                        <TextView
+                            android:id="@+id/createArticleTagCloudText"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentLeft="true"
+                            android:layout_alignParentStart="true"
+                            android:layout_below="@+id/createUserNameEdit"
+                            android:text="@string/create_article_tag_cloud" />
+
+                        <EditText
+                            android:id="@+id/createArticleTagCloudEdit"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentLeft="true"
+                            android:layout_alignParentStart="true"
+                            android:layout_below="@+id/createUserSurnameText"
+                            android:contentDescription="@string/create_article_tag_cloud"
+                            android:ems="10"
+                            android:inputType="textPersonName"
+                            android:textSize="14sp"
+                            tools:text="@string/create_article_tag_cloud" />
+
+                        <TextView
+                            android:id="@+id/createAuthorText"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentLeft="true"
+                            android:layout_alignParentStart="true"
+                            android:layout_below="@+id/createUserNameEdit"
+                            android:text="@string/Author" />
+
+                        <EditText
+                            android:id="@+id/createAuthorEdit"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentLeft="true"
+                            android:layout_alignParentStart="true"
+                            android:layout_below="@+id/createUserSurnameText"
+                            android:contentDescription="@string/Author"
+                            android:ems="10"
+                            android:inputType="textPersonName"
+                            android:textSize="14sp"
+                            tools:text="@string/Author" />
+
+                        <Spinner
+                            android:id="@+id/createAuthorSpinner"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/create_article_addional_tab"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:id="@+id/imageView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:layout_alignParentRight="true"
+                            android:layout_alignTop="@+id/createUserPasswordEdit"
+                            app:srcCompat="@mipmap/ic_launcher" />
+
+                        <TextView
+                            android:id="@+id/createUserAvatarText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:layout_alignParentLeft="true"
+                            android:layout_alignParentRight="true"
+                            android:layout_alignParentStart="true"
+                            android:layout_below="@+id/createUserTimePicker"
+                            android:text="@string/create_unit_avatar_text" />
+
+                        <EditText
+                            android:id="@+id/createUserAvatarEdit"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentBottom="true"
+                            android:layout_alignParentStart="true"
+                            android:ems="10"
+                            android:inputType="textPersonName"
+                            android:textSize="14sp"
+                            tools:text="@string/create_user_avatar_url" />
+
+                        <TextView
+                            android:id="@+id/createUserAboutText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentBottom="true"
+                            android:layout_alignParentEnd="true"
+                            android:layout_alignParentLeft="true"
+                            android:layout_alignParentRight="true"
+                            android:layout_alignParentStart="true"
+                            android:layout_weight="1"
+                            android:text="@string/create_user_about_text" />
+
+                        <EditText
+                            android:id="@+id/createUserAboutEdit"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentBottom="true"
+                            android:layout_alignParentLeft="true"
+                            android:layout_alignParentStart="true"
+                            android:ems="10"
+                            android:gravity="top|left"
+                            android:inputType="textMultiLine"
+                            android:lines="8"
+                            android:maxLines="10"
+                            android:minLines="6"
+                            android:scrollbars="vertical"
+                            android:textSize="14sp"
+                            tools:text="@string/create_user_avatar_url" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/create_article_datetime_tab"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/createUserRegDateText"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentLeft="true"
+                            android:layout_alignParentStart="true"
+                            android:layout_below="@+id/createUserPasswordEdit"
+                            android:text="@string/create_user_reg_date_text" />
+
+                        <DatePicker
+                            android:id="@+id/createUserDatePicker"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentLeft="true"
+                            android:layout_alignParentStart="true"
+                            android:layout_below="@+id/createUserRegDateText"
+                            android:hapticFeedbackEnabled="true"
+                            android:headerBackground="@color/colorPrimary" />
+
+                        <TimePicker
+                            android:id="@+id/createUserTimePicker"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentLeft="true"
+                            android:layout_alignParentStart="true"
+                            android:layout_below="@+id/createUserDatePicker"
+                            android:headerBackground="@color/colorPrimaryDark" />
+
+                    </LinearLayout>
+
+                </FrameLayout>
+            </LinearLayout>
+        </TabHost>
+
+    </RelativeLayout>
+</ScrollView>
+
+</LinearLayout>

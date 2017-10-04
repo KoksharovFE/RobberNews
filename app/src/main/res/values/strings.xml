@@ -1,0 +1,30 @@
+<resources>
+    <string name="app_name">RobberNews</string>
+
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="title_activity_local_admin">LocalAdminActivity</string>
+    <string name="action_settings">Settings</string>
+    <string name="DBFill">Fill Data base</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="Table">Tabke</string>
+    <string name="chose">Chose</string>
+    <string name="create_user_name_text">Name</string>
+    <string name="create_user_surname_text">Surname</string>
+    <string name="create_user_password_text" >Password</string>
+    <string name="create_user_reg_date_text"><![CDATA[Date && Time]]></string>
+    <string name="create_unit_avatar_text">Avatar</string>
+    <string name="create_user_about_text">About</string>
+    <string name="create_user_reg_date_text_date" >Date</string>
+    <string name="create_user_reg_date_text_time" >Time</string>
+    <string name="create_user_avatar_url">http://…</string>
+    <string name="Credentials">Credentials</string>
+    <string name="addional_info">Additional info</string>
+    <string name="datetime">DateTime</string>
+    <string name="chose_fragment">Chose Fragment</string>
+    <string name="create_article_title_text">Title</string>
+    <string name="create_user_access_mode_text" >Access mode</string>
+    <string name="create_article_tag_cloud">Tag Cloud</string>
+    <string name="Author">Author</string>
+</resources>
