@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -129,10 +130,6 @@ public class CreateUserFragment extends Fragment implements DBData{
 //                choseFragment(spinnerData[0]);
             }
         });
-
-
-
-
 
 
         TabHost tabHost = (TabHost)  getView().findViewById(R.id.create_user_tabhost);
@@ -312,6 +309,12 @@ public class CreateUserFragment extends Fragment implements DBData{
     public void onDetach() {
         super.onDetach();
         mListener = null;
+    }
+
+    @Override
+    public void onStart(){
+        super.onStart();
+        Log.wtf("User create", "started");
     }
 
     /**

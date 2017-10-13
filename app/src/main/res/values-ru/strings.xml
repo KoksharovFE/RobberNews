@@ -23,6 +23,13 @@
     <string name="chose_fragment">Выбери фрагмент</string>
     <string name="create_article_title_text">Title</string>
     <string name="create_user_access_mode_text" >Права доступа</string>
-    <string name="create_article_tag_cloud">Tag Cloud</string>
-    <string name="Author">Author</string>
+    <string name="create_article_tag_cloud">Облако тегов</string>
+    <string name="Author">Автор</string>
+    <string name="Preview">Превью</string>
+    <string name="Text">Текст</string>
+    <string name="Main">Основной</string>
+    <string name="DataView">Обзор данных</string>
+    <string name="Theme">Тема</string>
+    <string name="is_forum_artcile" >Статья для форума</string>
+    <string name="Image">Image</string>
 </resources>

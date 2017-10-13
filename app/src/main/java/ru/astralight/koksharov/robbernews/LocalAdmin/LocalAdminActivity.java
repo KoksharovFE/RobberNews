@@ -26,16 +26,16 @@ public class LocalAdminActivity extends AppCompatActivity implements CreateUserF
         CreateForumArticleFragment.OnFragmentInteractionListener,
         CreateForumArticleCommentFragment.OnFragmentInteractionListener{
 
-    final String[] spinnerData = {RobberNewsContentProvider.TABLE_USER, RobberNewsContentProvider.TABLE_ARTICLE,
-            RobberNewsContentProvider.TABLE_ARTICLE_COMMENT, RobberNewsContentProvider.TABLE_FORUM_ARTICLE,
-            RobberNewsContentProvider.TABLE_FORUM_ARTICLE_COMMENT};
+
 
     int currentFragmentNumber = -1;
 
     HashMap<String, String> userData = new HashMap<>();
+    HashMap<String, String> articleData = new HashMap<>();
+    HashMap<String, String> articleCommentData = new HashMap<>();
 
-    View createUserFragment, createArticleFragment, createArticleCommentFragment,
-            createForumArticleFragment, createForumArticleCommentFragment;
+    View createUserFragment, createArticleFragment, createArticleCommentFragment;
+//            createForumArticleFragment, createForumArticleCommentFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,17 +48,17 @@ public class LocalAdminActivity extends AppCompatActivity implements CreateUserF
         createUserFragment = findViewById(R.id.user_fragment);
         createArticleFragment = findViewById(R.id.article_fragment);
         createArticleCommentFragment = findViewById(R.id.article_comment_fragment);
-        createForumArticleFragment = findViewById(R.id.forum_article_fragment);
-        createForumArticleCommentFragment = findViewById(R.id.forum_article_comment_fragment);
+//        createForumArticleFragment = findViewById(R.id.forum_article_fragment);
+//        createForumArticleCommentFragment = findViewById(R.id.forum_article_comment_fragment);
 
         createUserFragment.setVisibility(View.GONE);
         createArticleFragment.setVisibility(View.GONE);
         createArticleCommentFragment.setVisibility(View.GONE);
-        createForumArticleFragment.setVisibility(View.GONE);
-        createForumArticleCommentFragment.setVisibility(View.GONE);
+//        createForumArticleFragment.setVisibility(View.GONE);
+//        createForumArticleCommentFragment.setVisibility(View.GONE);
 
 
-        final ArrayAdapter<String> chooseAdapter = new ArrayAdapter<String>(this,  android.R.layout.simple_spinner_item, spinnerData);//,R.layout.spinner_layout R.id.choose_spinner
+        final ArrayAdapter<String> chooseAdapter = new ArrayAdapter<String>(this,  android.R.layout.simple_spinner_item, RobberNewsContentProvider.SPINNER_DATA);//,R.layout.spinner_layout R.id.choose_spinner
 
 //        chooseAdapter.addAll(spinnerData);
 
@@ -73,11 +73,11 @@ public class LocalAdminActivity extends AppCompatActivity implements CreateUserF
         chooseSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                choseFragment(spinnerData[i]);
+                choseFragment(RobberNewsContentProvider.SPINNER_DATA[i]);
             }
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
-                choseFragment(spinnerData[0]);
+                choseFragment(RobberNewsContentProvider.SPINNER_DATA[0]);
             }
         });
 
@@ -96,13 +96,12 @@ public class LocalAdminActivity extends AppCompatActivity implements CreateUserF
         createUserFragment.setVisibility(View.GONE);
         createArticleFragment.setVisibility(View.GONE);
         createArticleCommentFragment.setVisibility(View.GONE);
-        createForumArticleFragment.setVisibility(View.GONE);
-        createForumArticleCommentFragment.setVisibility(View.GONE);
+//        createForumArticleFragment.setVisibility(View.GONE);
+//        createForumArticleCommentFragment.setVisibility(View.GONE);
 
         int chosenFragment = 0;
-        //todo switch / finals
-        for (int i = 0; i < spinnerData.length; i++) {
-            if (spinnerData[i].equals(name)){
+        for (int i = 0; i < RobberNewsContentProvider.SPINNER_DATA.length; i++) {
+            if (RobberNewsContentProvider.SPINNER_DATA[i].equals(name)){
                 chosenFragment = i;
             }
         }
@@ -117,12 +116,12 @@ public class LocalAdminActivity extends AppCompatActivity implements CreateUserF
             case 2:
                 createArticleCommentFragment.setVisibility(View.VISIBLE);
                 break;
-            case 3:
-                createForumArticleFragment.setVisibility(View.VISIBLE);
-                break;
-            case 4:
-                createForumArticleCommentFragment.setVisibility(View.VISIBLE);
-                break;
+//            case 3:
+//                createForumArticleFragment.setVisibility(View.VISIBLE);
+//                break;
+//            case 4:
+//                createForumArticleCommentFragment.setVisibility(View.VISIBLE);
+//                break;
         }
         TextView textView = (TextView) findViewById(R.id.chose_common_text_view);
         textView.setText( getString(R.string.chose_fragment) );
@@ -132,29 +131,58 @@ public class LocalAdminActivity extends AppCompatActivity implements CreateUserF
         TextView textView = (TextView) findViewById(R.id.chose_common_text_view);
         textView.setText("AddInDb");
         try {
-            if (userData.get("WRITE").equals(RobberNewsContentProvider.TABLE_USER)){
-                ContentResolver resolver = getContentResolver();
-                ContentValues values = new ContentValues();
+            switch(RobberNewsContentProvider.SPINNER_DATA[currentFragmentNumber]){
+                case RobberNewsContentProvider.TABLE_USER:
+                    if ( userData.get("WRITE").equals(RobberNewsContentProvider.TABLE_USER) ){
+                        ContentResolver resolver = getContentResolver();
+                        ContentValues values = new ContentValues();
 
-                Cursor cursor = resolver.query(RobberNewsContentProvider.PROVIDER_USER, RobberNewsContentProvider.PROJECTION_USER, null, null, null);
+                        Cursor cursor = resolver.query(RobberNewsContentProvider.PROVIDER_USER, RobberNewsContentProvider.PROJECTION_USER, null, null, null);
 
-                if (cursor != null) {
+                        if (cursor != null) {
 
-                    values.put(RobberNewsContentProvider.COLUMN_NAME, userData.get(RobberNewsContentProvider.COLUMN_NAME));
-                    values.put(RobberNewsContentProvider.COLUMN_SURNAME, userData.get(RobberNewsContentProvider.COLUMN_SURNAME));
-                    values.put(RobberNewsContentProvider.COLUMN_PASSWORD, userData.get(RobberNewsContentProvider.COLUMN_PASSWORD));
-                    values.put(RobberNewsContentProvider.COLUMN_ACCESS_MODE, userData.get(RobberNewsContentProvider.COLUMN_ACCESS_MODE));
-                    values.put(RobberNewsContentProvider.COLUMN_REGISTER_DATE, userData.get(RobberNewsContentProvider.COLUMN_REGISTER_DATE) +
-                            " " + userData.get(RobberNewsContentProvider.COLUMN_DATE_TIME) );
-                    values.put(RobberNewsContentProvider.COLUMN_AVATAR, userData.get(RobberNewsContentProvider.COLUMN_AVATAR));
-                    values.put(RobberNewsContentProvider.COLUMN_ABOUT, userData.get(RobberNewsContentProvider.COLUMN_ABOUT));
-                    resolver.insert(RobberNewsContentProvider.PROVIDER_USER, values);
-                }
-                cursor.close();
+                            values.put(RobberNewsContentProvider.COLUMN_NAME, userData.get(RobberNewsContentProvider.COLUMN_NAME));
+                            values.put(RobberNewsContentProvider.COLUMN_SURNAME, userData.get(RobberNewsContentProvider.COLUMN_SURNAME));
+                            values.put(RobberNewsContentProvider.COLUMN_PASSWORD, userData.get(RobberNewsContentProvider.COLUMN_PASSWORD));
+                            values.put(RobberNewsContentProvider.COLUMN_ACCESS_MODE, userData.get(RobberNewsContentProvider.COLUMN_ACCESS_MODE));
+                            values.put(RobberNewsContentProvider.COLUMN_REGISTER_DATE, userData.get(RobberNewsContentProvider.COLUMN_REGISTER_DATE) +
+                                    " " + userData.get(RobberNewsContentProvider.COLUMN_DATE_TIME) );
+                            values.put(RobberNewsContentProvider.COLUMN_AVATAR, userData.get(RobberNewsContentProvider.COLUMN_AVATAR));
+                            values.put(RobberNewsContentProvider.COLUMN_ABOUT, userData.get(RobberNewsContentProvider.COLUMN_ABOUT));
+                            resolver.insert(RobberNewsContentProvider.PROVIDER_USER, values);
+                        }
+                        cursor.close();
+                        userData.clear();
+                    }
+                    break;
+                case RobberNewsContentProvider.TABLE_ARTICLE:
+                    if ( articleData.get("WRITE").equals(RobberNewsContentProvider.TABLE_ARTICLE) ){
+                        ContentResolver resolver = getContentResolver();
+                        ContentValues values = new ContentValues();
+
+                        Cursor cursor = resolver.query(RobberNewsContentProvider.PROVIDER_ARTICLE, RobberNewsContentProvider.PROJECTION_ARTICLE, null, null, null);
+
+                        if (cursor != null) {
+
+                            values.put(RobberNewsContentProvider.COLUMN_IMAGE, articleData.get(RobberNewsContentProvider.COLUMN_IMAGE));
+                            values.put(RobberNewsContentProvider.COLUMN_TITLE, articleData.get(RobberNewsContentProvider.COLUMN_TITLE));
+                            values.put(RobberNewsContentProvider.COLUMN_TAGS_CLOUD, articleData.get(RobberNewsContentProvider.COLUMN_TAGS_CLOUD));
+                            values.put(RobberNewsContentProvider.COLUMN_PREVIEW, articleData.get(RobberNewsContentProvider.COLUMN_PREVIEW));
+                            values.put(RobberNewsContentProvider.COLUMN_TEXT, articleData.get(RobberNewsContentProvider.COLUMN_TEXT));
+                            values.put(RobberNewsContentProvider.COLUMN_THEME, articleData.get(RobberNewsContentProvider.COLUMN_THEME));
+                            values.put(RobberNewsContentProvider.COLUMN_LIKES_NUMBER, articleData.get(RobberNewsContentProvider.COLUMN_LIKES_NUMBER));
+                            values.put(RobberNewsContentProvider.COLUMN_IS_FORUM_ARTICLE, articleData.get(RobberNewsContentProvider.COLUMN_IS_FORUM_ARTICLE));
+                            values.put(RobberNewsContentProvider.COLUMN_AUTHOR_ID, articleData.get(RobberNewsContentProvider.COLUMN_AUTHOR_ID));
+                            values.put(RobberNewsContentProvider.COLUMN_DATE_TIME, articleData.get(RobberNewsContentProvider.COLUMN_REGISTER_DATE) +
+                                    " " + articleData.get(RobberNewsContentProvider.COLUMN_DATE_TIME) );
+                            resolver.insert(RobberNewsContentProvider.PROVIDER_ARTICLE, values);
+                        }
+                        cursor.close();
+                        articleData.clear();
+                    }
+                    break;
             }
-//            Map<String, String> data = new HashMap<>();
-//            data.put("WRITE", spinnerData[currentFragmentNumber]);
-//            onFragmentInteraction(data);
+
         } catch (Exception ex){
             textView.setText("AddInDb fail uri");
         }
@@ -162,20 +190,24 @@ public class LocalAdminActivity extends AppCompatActivity implements CreateUserF
 
     public void onFragmentInteraction(Map<String, String> data) {
         TextView textView = (TextView) findViewById(R.id.chose_common_text_view);
-
-
 //        for( String str : data.keySet()){
 //            userData.put(str, data.get(str));
 //        }
         try {
-            if (data.get("WRITE").equals(spinnerData[0])) {//USER{
+            if (data.get("WRITE").equals(RobberNewsContentProvider.TABLE_USER)) {//USER{
                 userData.putAll(data);
+            }
+            if (data.get("WRITE").equals(RobberNewsContentProvider.TABLE_ARTICLE)) {//ARTICLE{
+                articleData.putAll(data);
+            }
+            if (data.get("WRITE").equals(RobberNewsContentProvider.TABLE_ARTICLE_COMMENT)) {//ARTICLE_COMMENT{
+                articleCommentData.putAll(data);
             }
         } catch (Exception ex){
             textView.setText(ex.getMessage());
             ex.printStackTrace();
         }
-        textView.setText(userData.toString());
+        textView.setText(userData.toString() + "\r\n" + articleData.toString() + "\r\n" + articleCommentData.toString() );
         Log.i("URI ", userData.toString());
     }
 
