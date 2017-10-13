@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="ru.astralight.koksharov.robbernews.views.Views">
+
+    <RelativeLayout
+        android:id="@+id/viewsHeroldRelativeLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/viewsArtifact"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:src="@drawable/artifact"
+            android:background="@drawable/artifact" />
+
+        <Button
+            android:id="@+id/viewsHearthstone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_toEndOf="@+id/viewsArtifact"
+            android:layout_toRightOf="@+id/viewsArtifact"
+            android:src="@drawable/hearthstone"
+            android:background="@drawable/hearthstone" />
+
+        <Button
+            android:id="@+id/viewsGwent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_toLeftOf="@+id/viewsDota2"
+            android:layout_toStartOf="@+id/viewsDota2"
+            android:src="@drawable/gwent"
+            android:background="@drawable/gwent" />
+
+        <Button
+            android:id="@+id/viewsDota2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/viewsHearthstone"
+            android:layout_alignBottom="@+id/viewsHearthstone"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/dota2"
+            android:background="@drawable/dota2" />
+
+        <ImageView
+            android:id="@+id/viewsCurrentColor"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignTop="@+id/viewsDota2"
+            android:layout_centerHorizontal="true"
+            app:srcCompat="@android:color/black" />
+    </RelativeLayout>
+
+    <ListView
+        android:id="@+id/viewsListView"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:background="@color/cardview_light_background"
+        android:visibility="visible" />
+
+</LinearLayout>

@@ -67,19 +67,19 @@
             android:layout_height="match_parent"
             tools:layout="@layout/fragment_create_article_comment" />
 
-        <fragment
-            android:id="@+id/forum_article_fragment"
-            android:name="ru.astralight.koksharov.robbernews.LocalAdmin.CreateForumArticleFragment"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            tools:layout="@layout/fragment_create_forum_article" />
+        <!--<fragment-->
+            <!--android:id="@+id/forum_article_fragment"-->
+            <!--android:name="ru.astralight.koksharov.robbernews.LocalAdmin.CreateForumArticleFragment"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--tools:layout="@layout/fragment_create_forum_article" />-->
 
-        <fragment
-            android:id="@+id/forum_article_comment_fragment"
-            android:name="ru.astralight.koksharov.robbernews.LocalAdmin.CreateForumArticleCommentFragment"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            tools:layout="@layout/fragment_create_forum_article_comment" />
+        <!--<fragment-->
+            <!--android:id="@+id/forum_article_comment_fragment"-->
+            <!--android:name="ru.astralight.koksharov.robbernews.LocalAdmin.CreateForumArticleCommentFragment"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--tools:layout="@layout/fragment_create_forum_article_comment" />-->
 
         <!--<fragment-->
             <!--android:id="@+id/la_user_fragment"-->

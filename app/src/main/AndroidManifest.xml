@@ -6,6 +6,7 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_USER_DICTIONARY" />
     <uses-permission android:name="android.permission.WRITE_USER_DICTIONARY" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -30,12 +31,13 @@
             android:name=".DB.RobberNewsContentProvider"
             android:authorities="ru.astralight.koksharov.robbernews.DB.RobberNewsContentProvider"
             android:enabled="true"
-            android:exported="true"></provider>
+            android:exported="true" />
 
         <activity
             android:name=".LocalAdmin.LocalAdminActivity"
             android:label="@string/title_activity_local_admin"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".views.Views"></activity>
     </application>
 
 </manifest>

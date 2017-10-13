@@ -14,10 +14,12 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import ru.astralight.koksharov.robbernews.DB.RobberNewsContentProvider;
 import ru.astralight.koksharov.robbernews.LocalAdmin.LocalAdminActivity;
+import ru.astralight.koksharov.robbernews.views.Views;
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
@@ -117,6 +119,13 @@ public class FullscreenActivit extends AppCompatActivity {
         // Upon interacting with UI controls, delay any scheduled hide()
         // operations to prevent the jarring behavior of controls going away
         // while interacting with the UI.
+        Button viewButton = (Button) findViewById(R.id.viewButton);
+        viewButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startViewsActivity();
+            }
+        });
         Button DBFill = (Button) findViewById(R.id.FSDBFill);
         DBFill.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -133,6 +142,12 @@ public class FullscreenActivit extends AppCompatActivity {
                 exampleWorkInDb();
             }
         });
+    }
+
+    void startViewsActivity(){
+
+        Intent intent = new Intent(this, Views.class);
+        startActivityForResult(intent, 1);
     }
 
     void startDBActivity(){

@@ -36,12 +36,29 @@ public class RobberNewsContentProvider extends ContentProvider {
 
     //endregion
 
+    //region Themes
+    public static final String THEME_DOTA = "dota2";
+    public static final String THEME_HEARTHSTONE = "hearthstone";
+    public static final String THEME_GWENT = "gwent";
+    public static final String THEME_ARTIFACT = "artifact";
+    public static String[] THEMES = {THEME_ARTIFACT, THEME_HEARTHSTONE, THEME_GWENT, THEME_DOTA};
+    //endregion
+
+    //region Tables
+    public final static String[] SPINNER_DATA = {RobberNewsContentProvider.TABLE_USER,
+            RobberNewsContentProvider.TABLE_ARTICLE,
+            RobberNewsContentProvider.TABLE_ARTICLE_COMMENT,
+//            RobberNewsContentProvider.TABLE_FORUM_ARTICLE,
+//            RobberNewsContentProvider.TABLE_FORUM_ARTICLE_COMMENT
+    };
+    //endregion
+
     //region Table
     public static final String TABLE_USER = "user";
     public static final String TABLE_ARTICLE = "article";
     public static final String TABLE_ARTICLE_COMMENT = "articlecomment";
-    public static final String TABLE_FORUM_ARTICLE = "forumarticle";
-    public static final String TABLE_FORUM_ARTICLE_COMMENT = "forumarticlecomment";
+//    public static final String TABLE_FORUM_ARTICLE = "forumarticle";
+//    public static final String TABLE_FORUM_ARTICLE_COMMENT = "forumarticlecomment";
     public static final String TABLE_IMG = "img";
     //endregion
 
@@ -49,8 +66,8 @@ public class RobberNewsContentProvider extends ContentProvider {
     public final static Uri PROVIDER_USER = Uri.parse("content://" + AUTHORITY + "/" + TABLE_USER);
     public final static Uri PROVIDER_ARTICLE = Uri.parse("content://" + AUTHORITY + "/" + TABLE_ARTICLE);
     public final static Uri PROVIDER_ARTICLE_COMMENT = Uri.parse("content://" + AUTHORITY + "/" + TABLE_ARTICLE_COMMENT);
-    public final static Uri PROVIDER_FORUM_ARTICLE = Uri.parse("content://" + AUTHORITY + "/" + TABLE_FORUM_ARTICLE);
-    public final static Uri PROVIDER_FORUM_ARTICLE_COMMENT = Uri.parse("content://" + AUTHORITY + "/" + TABLE_FORUM_ARTICLE_COMMENT);
+//    public final static Uri PROVIDER_FORUM_ARTICLE = Uri.parse("content://" + AUTHORITY + "/" + TABLE_FORUM_ARTICLE);
+//    public final static Uri PROVIDER_FORUM_ARTICLE_COMMENT = Uri.parse("content://" + AUTHORITY + "/" + TABLE_FORUM_ARTICLE_COMMENT);
     public final static Uri PROVIDER_IMG = Uri.parse("content://" + AUTHORITY + "/" + TABLE_IMG);
     //endregion
 
@@ -83,7 +100,8 @@ public class RobberNewsContentProvider extends ContentProvider {
     public final static String COLUMN_TEXT = "text";
     public final static String COLUMN_TAGS_CLOUD = "tags";
     public final static String COLUMN_LIKES_NUMBER = "likes_number";
-    public final static String COLUMN_COMMENTS_NUMBER = "comments_number";
+    public final static String COLUMN_THEME = "theme";
+    public final static String COLUMN_IS_FORUM_ARTICLE = "is_forum_article";
     public final static String COLUMN_AUTHOR_ID = "author_id";
     public final static String COLUMN_DATE_TIME = "date_time";
 
@@ -94,8 +112,9 @@ public class RobberNewsContentProvider extends ContentProvider {
             COLUMN_TAGS_CLOUD,
             COLUMN_PREVIEW,
             COLUMN_TEXT,
+            COLUMN_THEME,
             COLUMN_LIKES_NUMBER,
-            COLUMN_COMMENTS_NUMBER,
+            COLUMN_IS_FORUM_ARTICLE,
             COLUMN_AUTHOR_ID,
             COLUMN_DATE_TIME
     };
@@ -107,31 +126,32 @@ public class RobberNewsContentProvider extends ContentProvider {
             COLUMN_TEXT,
             COLUMN_AUTHOR_ID,
             COLUMN_ARTICLE_ID,
-            COLUMN_DATE_TIME
-    };
-
-    public final static String[] PROJECTION_FORUM_ARTICLE = new String[]{
-            COLUMN_ID,
-            COLUMN_IMAGE,
-            COLUMN_TITLE,
-            COLUMN_TAGS_CLOUD,
-            COLUMN_PREVIEW,
-            COLUMN_TEXT,
             COLUMN_LIKES_NUMBER,
-            COLUMN_COMMENTS_NUMBER,
-            COLUMN_AUTHOR_ID,
             COLUMN_DATE_TIME
     };
 
-    public final static String COLUMN_FORUM_ARTICLE_ID = "forum_article_id";
-
-    public final static String[] PROJECTION_FORUM_ARTICLE_COMMENT = new String[]{
-            COLUMN_ID,
-            COLUMN_TEXT,
-            COLUMN_AUTHOR_ID,
-            COLUMN_FORUM_ARTICLE_ID,
-            COLUMN_DATE_TIME
-    };
+//    public final static String[] PROJECTION_FORUM_ARTICLE = new String[]{
+//            COLUMN_ID,
+//            COLUMN_IMAGE,
+//            COLUMN_TITLE,
+//            COLUMN_TAGS_CLOUD,
+//            COLUMN_PREVIEW,
+//            COLUMN_TEXT,
+//            COLUMN_THEME,
+//            COLUMN_LIKES_NUMBER,
+//            COLUMN_AUTHOR_ID,
+//            COLUMN_DATE_TIME
+//    };
+//
+//    public final static String COLUMN_FORUM_ARTICLE_ID = "forum_article_id";
+//
+//    public final static String[] PROJECTION_FORUM_ARTICLE_COMMENT = new String[]{
+//            COLUMN_ID,
+//            COLUMN_TEXT,
+//            COLUMN_AUTHOR_ID,
+//            COLUMN_FORUM_ARTICLE_ID,
+//            COLUMN_DATE_TIME
+//    };
 
     public final static String BLOB_IMAGE = "img";
 
@@ -146,8 +166,8 @@ public class RobberNewsContentProvider extends ContentProvider {
     private static final int URI_TABLE_USER = 1;
     private static final int URI_TABLE_ARTICLE = 2;
     private static final int URI_TABLE_ARTICLE_COMMENT = 3;
-    private static final int URI_TABLE_FORUM_ARTICLE = 4;
-    private static final int URI_TABLE_FORUM_ARICLE_COMMENT = 5;
+//    private static final int URI_TABLE_FORUM_ARTICLE = 4;
+//    private static final int URI_TABLE_FORUM_ARICLE_COMMENT = 5;
     private static final int URI_TABLE_IMG = 6;
     //endregion
 
@@ -155,8 +175,8 @@ public class RobberNewsContentProvider extends ContentProvider {
         sURIMatcher.addURI(AUTHORITY, TABLE_USER, URI_TABLE_USER);
         sURIMatcher.addURI(AUTHORITY, TABLE_ARTICLE, URI_TABLE_ARTICLE);
         sURIMatcher.addURI(AUTHORITY, TABLE_ARTICLE_COMMENT, URI_TABLE_ARTICLE_COMMENT);
-        sURIMatcher.addURI(AUTHORITY, TABLE_FORUM_ARTICLE, URI_TABLE_FORUM_ARTICLE);
-        sURIMatcher.addURI(AUTHORITY, TABLE_FORUM_ARTICLE_COMMENT, URI_TABLE_FORUM_ARICLE_COMMENT);
+//        sURIMatcher.addURI(AUTHORITY, TABLE_FORUM_ARTICLE, URI_TABLE_FORUM_ARTICLE);
+//        sURIMatcher.addURI(AUTHORITY, TABLE_FORUM_ARTICLE_COMMENT, URI_TABLE_FORUM_ARICLE_COMMENT);
         sURIMatcher.addURI(AUTHORITY, TABLE_IMG, URI_TABLE_IMG);
     }
 
@@ -194,14 +214,14 @@ public class RobberNewsContentProvider extends ContentProvider {
                 Log.d(((Integer) URI_TABLE_ARTICLE_COMMENT).toString(), TABLE_ARTICLE_COMMENT);
                 table = TABLE_ARTICLE_COMMENT;
                 break;
-            case URI_TABLE_FORUM_ARTICLE:
-                Log.d(((Integer) URI_TABLE_FORUM_ARTICLE).toString(), TABLE_FORUM_ARTICLE);
-                table = TABLE_FORUM_ARTICLE;
-                break;
-            case URI_TABLE_FORUM_ARICLE_COMMENT:
-                Log.d(((Integer) URI_TABLE_FORUM_ARICLE_COMMENT).toString(), TABLE_FORUM_ARTICLE_COMMENT);
-                table = TABLE_FORUM_ARTICLE_COMMENT;
-                break;
+//            case URI_TABLE_FORUM_ARTICLE:
+//                Log.d(((Integer) URI_TABLE_FORUM_ARTICLE).toString(), TABLE_FORUM_ARTICLE);
+//                table = TABLE_FORUM_ARTICLE;
+//                break;
+//            case URI_TABLE_FORUM_ARICLE_COMMENT:
+//                Log.d(((Integer) URI_TABLE_FORUM_ARICLE_COMMENT).toString(), TABLE_FORUM_ARTICLE_COMMENT);
+//                table = TABLE_FORUM_ARTICLE_COMMENT;
+//                break;
             case URI_TABLE_IMG:
                 Log.d(((Integer) URI_TABLE_IMG).toString(), TABLE_IMG);
                 table = TABLE_IMG;
@@ -267,7 +287,7 @@ public class RobberNewsContentProvider extends ContentProvider {
     //region SQLite DB
     private static class DatabaseHelper extends SQLiteOpenHelper {
 
-        private static final int VERSION = 8;
+        private static final int VERSION = 12;
         public static SQLiteDatabase mDb;
 
         DatabaseHelper(Context context) {
@@ -300,10 +320,12 @@ public class RobberNewsContentProvider extends ContentProvider {
                     + COLUMN_IMAGE + " VARCHAR, "
                     + COLUMN_PREVIEW + " VARCHAR, "
                     + COLUMN_TITLE + " VARCHAR, "
+                    + COLUMN_TEXT + " VARCHAR, "
+                    + COLUMN_THEME + " VARCHAR, "
+                    + COLUMN_IS_FORUM_ARTICLE + " INTEGER, "
                     + COLUMN_TAGS_CLOUD + " VARCHAR, "
-                    + COLUMN_LIKES_NUMBER + " VARCHAR, "
-                    + COLUMN_COMMENTS_NUMBER + " VARCHAR, "
-                    + COLUMN_AUTHOR_ID + " VARCHAR, "
+                    + COLUMN_LIKES_NUMBER + " INTEGER, "
+                    + COLUMN_AUTHOR_ID + " INTEGER, "
                     + COLUMN_DATE_TIME + " VARCHAR"
                     + ");");
 
@@ -311,32 +333,34 @@ public class RobberNewsContentProvider extends ContentProvider {
                     + TABLE_ARTICLE_COMMENT + " ("
                     + COLUMN_ID + " INTEGER PRIMARY KEY autoincrement, "
                     + COLUMN_TEXT + " VARCHAR,"
-                    + COLUMN_AUTHOR_ID + " VARCHAR, "
-                    + COLUMN_ARTICLE_ID + " VARCHAR,"
+                    + COLUMN_LIKES_NUMBER + " INTEGER, "
+                    + COLUMN_AUTHOR_ID + " INTEGER, "
+                    + COLUMN_ARTICLE_ID + " INTEGER,"
                     + COLUMN_DATE_TIME + " VARCHAR "
                     + ");");
+//
+//            db.execSQL("CREATE TABLE IF NOT EXISTS "
+//                    + TABLE_FORUM_ARTICLE + " ("
+//                    + COLUMN_ID + " INTEGER PRIMARY KEY autoincrement, "
+//                    + COLUMN_IMAGE + " VARCHAR, "
+//                    + COLUMN_PREVIEW + " VARCHAR, "
+//                    + COLUMN_TITLE + " VARCHAR, "
+//                    + COLUMN_TEXT + " VARCHAR, "
+//                    + COLUMN_THEME + " VARCHAR, "
+//                    + COLUMN_TAGS_CLOUD + " VARCHAR, "
+//                    + COLUMN_LIKES_NUMBER + " VARCHAR, "
+//                    + COLUMN_AUTHOR_ID + " INTEGER, "
+//                    + COLUMN_DATE_TIME + " VARCHAR"
+//                    + ");");
 
-            db.execSQL("CREATE TABLE IF NOT EXISTS "
-                    + TABLE_FORUM_ARTICLE + " ("
-                    + COLUMN_ID + " INTEGER PRIMARY KEY autoincrement, "
-                    + COLUMN_IMAGE + " VARCHAR, "
-                    + COLUMN_PREVIEW + " VARCHAR, "
-                    + COLUMN_TITLE + " VARCHAR, "
-                    + COLUMN_TAGS_CLOUD + " VARCHAR, "
-                    + COLUMN_LIKES_NUMBER + " VARCHAR, "
-                    + COLUMN_COMMENTS_NUMBER + " VARCHAR, "
-                    + COLUMN_AUTHOR_ID + " VARCHAR, "
-                    + COLUMN_DATE_TIME + " VARCHAR"
-                    + ");");
-
-            db.execSQL("CREATE TABLE IF NOT EXISTS "
-                    + TABLE_FORUM_ARTICLE_COMMENT + " ("
-                    + COLUMN_ID + " INTEGER PRIMARY KEY autoincrement, "
-                    + COLUMN_TEXT + " VARCHAR,"
-                    + COLUMN_AUTHOR_ID + " VARCHAR, "
-                    + COLUMN_FORUM_ARTICLE_ID + " VARCHAR,"
-                    + COLUMN_DATE_TIME + " VARCHAR"
-                    + ");");
+//            db.execSQL("CREATE TABLE IF NOT EXISTS "
+//                    + TABLE_FORUM_ARTICLE_COMMENT + " ("
+//                    + COLUMN_ID + " INTEGER PRIMARY KEY autoincrement, "
+//                    + COLUMN_TEXT + " VARCHAR,"
+//                    + COLUMN_AUTHOR_ID + " INTEGER, "
+//                    + COLUMN_FORUM_ARTICLE_ID + " VARCHAR,"
+//                    + COLUMN_DATE_TIME + " VARCHAR"
+//                    + ");");
 
             db.execSQL("CREATE TABLE IF NOT EXISTS "
                     + TABLE_IMG + " ("
@@ -354,7 +378,7 @@ public class RobberNewsContentProvider extends ContentProvider {
             db.execSQL("DROP TABLE IF EXISTS " + TABLE_USER);
             db.execSQL("DROP TABLE IF EXISTS " + TABLE_ARTICLE);
             db.execSQL("DROP TABLE IF EXISTS " + TABLE_ARTICLE_COMMENT);
-            db.execSQL("DROP TABLE IF EXISTS " + TABLE_FORUM_ARTICLE);
+//            db.execSQL("DROP TABLE IF EXISTS " + TABLE_FORUM_ARTICLE);
             db.execSQL("DROP TABLE IF EXISTS " + TABLE_IMG);
             onCreate(db);
         }
@@ -363,8 +387,8 @@ public class RobberNewsContentProvider extends ContentProvider {
             db.execSQL("DROP TABLE IF EXISTS " + TABLE_USER);
             db.execSQL("DROP TABLE IF EXISTS " + TABLE_ARTICLE);
             db.execSQL("DROP TABLE IF EXISTS " + TABLE_ARTICLE_COMMENT);
-            db.execSQL("DROP TABLE IF EXISTS " + TABLE_FORUM_ARTICLE);
-            db.execSQL("DROP TABLE IF EXISTS " + TABLE_FORUM_ARTICLE_COMMENT);
+//            db.execSQL("DROP TABLE IF EXISTS " + TABLE_FORUM_ARTICLE);
+//            db.execSQL("DROP TABLE IF EXISTS " + TABLE_FORUM_ARTICLE_COMMENT);
             db.execSQL("DROP TABLE IF EXISTS " + TABLE_IMG);
             onCreate(db);
         }
