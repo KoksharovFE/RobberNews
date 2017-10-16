@@ -2,31 +2,27 @@ package ru.astralight.koksharov.robbernews.containers;
 
 import android.app.Activity;
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.os.AsyncTask;
-import android.support.annotation.NonNull;
+import android.content.Intent;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
 
-import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Collections;
 
+import ru.astralight.koksharov.robbernews.DB.RobberNewsContentProvider;
 import ru.astralight.koksharov.robbernews.R;
 import ru.astralight.koksharov.robbernews.tasks.DownloadImageTask;
+import ru.astralight.koksharov.robbernews.views.ArticleExpanded;
 import ru.astralight.koksharov.robbernews.views.Views;
 
 /**
@@ -34,7 +30,7 @@ import ru.astralight.koksharov.robbernews.views.Views;
  */
 public class ViewsArrayAdapter extends ArrayAdapter<ViewsListItem> {
     private final Activity context;
-    private ArrayList<ViewsListItem> articlesList = new ArrayList<>();
+    public ArrayList<ViewsListItem> articlesList = new ArrayList<>();
 
     public ViewsArrayAdapter(Activity context, ArrayList<ViewsListItem> articles) {
         super(context, R.layout.views_list_item_layout, articles );
@@ -45,35 +41,57 @@ public class ViewsArrayAdapter extends ArrayAdapter<ViewsListItem> {
     //todo update articles method
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
         LayoutInflater inflater = (LayoutInflater) context
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View rowView = inflater.inflate(R.layout.views_list_item_layout, parent, false);
+        final View rowView = inflater.inflate(R.layout.views_list_item_layout, parent, false);
 
         TextView titleView = (TextView) rowView.findViewById(R.id.vListItemTitle);
         TextView previewView = (TextView) rowView.findViewById(R.id.vListItemPreview);
-        RecyclerView tagsCloudView = rowView.findViewById(R.id.vListItemTagsCloudRecyclerView);
+        TextView likesView = (TextView) rowView.findViewById(R.id.vListItemLikesNumber);
+        final RecyclerView tagsCloudView = rowView.findViewById(R.id.vListItemTagsCloudRecyclerView);
 //        ListView tagsCloudView = rowView.findViewById(R.id.vListItemTagsCloudListView);
         ImageView imageView = (ImageView) rowView.findViewById(R.id.vListItemTitleImageView);
+        Button detail = (Button) rowView.findViewById(R.id.vListItemDetailButton);
 
-        titleView.setText(articlesList.get(position).title);
-        previewView.setText(articlesList.get(position).preview);
+        detail.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(rowView.getContext(), ArticleExpanded.class);
+                intent.putExtra(RobberNewsContentProvider.COLUMN_ID, articlesList.get(position).get_id());
+                ((Activity) rowView.getContext()).startActivityForResult(intent, 1);
+            }
+        });
+
+        titleView.setText(articlesList.get(position).getTitle());
+        previewView.setText(articlesList.get(position).getPreview());
+        likesView.setText(articlesList.get(position).getLikesNumber()+"");
 
         CardView cardView = rowView.findViewById(R.id.vListItemCardView);
 
         cardView.setCardBackgroundColor(Views.argbColor);
-        new DownloadImageTask(imageView).execute(articlesList.get(position).imgSrc);
+        new DownloadImageTask(imageView).execute(articlesList.get(position).getImgSrc());
 
         RecyclerView.ItemAnimator itemAnimator = new DefaultItemAnimator();
         tagsCloudView.setItemAnimator(itemAnimator);
 
         ArrayList<String> tags = new ArrayList<String>();
-        if (articlesList.get(position).tags != null) {
-            Collections.addAll(tags, articlesList.get(position).tags);
+        if (articlesList.get(position).getTags() != null) {
+            Collections.addAll(tags, articlesList.get(position).getTags());
         }
         tagsCloudView.setAdapter(
                 new ViewsListItemTagsAdapter(tags));
         tagsCloudView.setLayoutManager(new GridLayoutManager(rowView.getContext(), 7));
+        tagsCloudView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int itemPosition = tagsCloudView.indexOfChild(v);
+
+                Log.i("Tags item position is ",String.valueOf(itemPosition));
+
+//                Log.e("Tags item position is ",String.valueOf(itemPosition));
+            }
+        });
 //        cardView.setBackground(parent.getBackground());
 
 //        titleView.setBackground(parent.getBackground());
@@ -91,7 +109,7 @@ public class ViewsArrayAdapter extends ArrayAdapter<ViewsListItem> {
                     getContext(),
                     android.R.layout.simple_list_item_1,
                     R.id.vListItemTagsCloudRecyclerView,
-                    articlesList.get(position).tags
+                    articlesList.get(position).getTags()
             );
 
         } catch (Exception ex){

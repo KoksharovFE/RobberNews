@@ -37,7 +37,11 @@
             android:name=".LocalAdmin.LocalAdminActivity"
             android:label="@string/title_activity_local_admin"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".views.Views"></activity>
+        <activity android:name=".views.Views" />
+        <activity
+            android:name=".views.ArticleExpanded"
+            android:label="@string/title_activity_article_expanded"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

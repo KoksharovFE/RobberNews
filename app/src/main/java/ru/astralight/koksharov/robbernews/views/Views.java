@@ -1,6 +1,7 @@
 package ru.astralight.koksharov.robbernews.views;
 
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -11,6 +12,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -29,10 +31,10 @@ import ru.astralight.koksharov.robbernews.containers.ViewsListItem;
 
 public class Views extends AppCompatActivity {
 
+    Views views;
     RelativeLayout layout;
 
-    ArrayList<ViewsListItem> viewsListItems = new ArrayList<>();
-    ViewsListItem[] viewsListItemsArray;
+
 
     ListView listView;
     ImageView imageView;
@@ -42,6 +44,8 @@ public class Views extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_views);
+
+        views = this;
 
         listView = (ListView) findViewById(R.id.viewsListView);//
 
@@ -112,19 +116,20 @@ public class Views extends AppCompatActivity {
 
     void receiveDataList(String theme, String tag){
         Cursor cursor = null;
+        ArrayList<ViewsListItem> viewsListItems = new ArrayList<>();
 
         if (theme == null && tag == null) {
             cursor = getContentResolver().query(RobberNewsContentProvider.PROVIDER_ARTICLE,
                     RobberNewsContentProvider.PROJECTION_ARTICLE,
-                    null, null, null);//todo order - likes, filtering
+                    null, null, RobberNewsContentProvider.COLUMN_LIKES_NUMBER);//todo order - likes, filtering
         } else if (tag == null) {
             cursor = getContentResolver().query(RobberNewsContentProvider.PROVIDER_ARTICLE,
                     RobberNewsContentProvider.PROJECTION_ARTICLE,
-                    RobberNewsContentProvider.COLUMN_THEME + "= ? ", new String[]{theme}, null);//todo order - likes, filtering
+                    RobberNewsContentProvider.COLUMN_THEME + "= ? ", new String[]{theme}, RobberNewsContentProvider.COLUMN_LIKES_NUMBER);//todo order - likes, filtering
         } else if (theme == null){
             cursor = getContentResolver().query(RobberNewsContentProvider.PROVIDER_ARTICLE,
                     RobberNewsContentProvider.PROJECTION_ARTICLE,
-                    RobberNewsContentProvider.COLUMN_TAGS_CLOUD + "= ? ", new String[]{tag}, null);//todo order - likes, filtering
+                    RobberNewsContentProvider.COLUMN_TAGS_CLOUD + "= ? ", new String[]{tag}, RobberNewsContentProvider.COLUMN_LIKES_NUMBER);//todo order - likes, filtering
         }
 
         viewsListItems.clear();
@@ -135,14 +140,26 @@ public class Views extends AppCompatActivity {
                 String title = cursor.getString(cursor.getColumnIndex(RobberNewsContentProvider.COLUMN_TITLE));
                 String preview = cursor.getString(cursor.getColumnIndex(RobberNewsContentProvider.COLUMN_PREVIEW));
                 String image = cursor.getString(cursor.getColumnIndex(RobberNewsContentProvider.COLUMN_IMAGE));
+                Integer likes = cursor.getInt(cursor.getColumnIndex(RobberNewsContentProvider.COLUMN_LIKES_NUMBER));
                 String tagsCloud = cursor.getString(cursor.getColumnIndex(RobberNewsContentProvider.COLUMN_TAGS_CLOUD));
-                ViewsListItem item = new ViewsListItem(_id, title, preview, image, tagsCloud);
+                ViewsListItem item = new ViewsListItem(_id, title, preview, image, tagsCloud, likes);
                 viewsListItems.add(item);
             } while (cursor.moveToNext());
         }
 
-        ViewsArrayAdapter adapter = new ViewsArrayAdapter(this, viewsListItems );
+        final ViewsArrayAdapter adapter = new ViewsArrayAdapter(this, viewsListItems );
         listView.setAdapter(adapter);
+//        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//
+//                Intent intent = new Intent(views, ArticleExpanded.class);
+//                intent.putExtra(RobberNewsContentProvider.COLUMN_ID,
+//                        ((ViewsArrayAdapter) listView.getAdapter()).articlesList.get(position).get_id());
+//                startActivityForResult(intent, 1);
+//
+//            }
+//        });
     }
 
     void changeTheme(String theme){
