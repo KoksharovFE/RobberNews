@@ -20,12 +20,7 @@ public class ViewsListItem {
         setPreview(pPreview);
         setImgSrc(pImgSrc);
         setLikesNumber(likesNumber);
-        if (tagsCloud != null ){
-            setTags(tagsCloud.replace(";","").split(" "));
-            for (int i = 0; i < getTags().length; i++) {
-                getTags()[i] = "#" + getTags()[i];
-            }
-        }
+        setTags(tagsCloudToTags(tagsCloud));
     }
 
     public Integer get_id() {
@@ -74,5 +69,14 @@ public class ViewsListItem {
 
     public void setLikesNumber(Integer likes_number) {
         this.likesNumber = likes_number;
+    }
+
+    public static String[] tagsCloudToTags(String tagsCloud){
+        if (tagsCloud != null ){
+            String[] tags = (tagsCloud.replace(";","").split(" "));
+            for (int i = 0; i < tags.length; i++) {
+                tags[i] = "#" + tags[i];
+            }
+        }
     }
 }

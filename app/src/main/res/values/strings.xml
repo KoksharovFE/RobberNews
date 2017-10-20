@@ -36,11 +36,13 @@
     <string name="Image">Image</string>
     <string name="title_activity_article_expanded">ArticleExpanded</string>
     <string name="large_text">
-        "Material is the metaphor.\n\n"
+        <!--<!DOCTYPE html>-->
+        <html><body>
+        "Material is the <b>metaphor</b>.\n\n"
 
-        "A material metaphor is the unifying theory of a rationalized space and a system of motion."
+        "A material metaphor is the unifying <i>theory of a rationalized space and a system of motion</i>."
         "The material is grounded in tactile reality, inspired by the study of paper and ink, yet "
-        "technologically advanced and open to imagination and magic.\n"
+        "technologically advanced and open to imagination and magic.\n<tr/>"
         "Surfaces and edges of the material provide visual cues that are grounded in reality. The "
         "use of familiar tactile attributes helps users quickly understand affordances. Yet the "
         "flexibility of the material creates new affordances that supercede those in the physical "
@@ -48,9 +50,12 @@
         "The fundamentals of light, surface, and movement are key to conveying how objects move, "
         "interact, and exist in space and in relation to each other. Realistic lighting shows "
         "seams, divides space, and indicates moving parts.\n\n"
-
+        <img src = "https://goo.gl/jmR8Gn">1</img>
+        <img src = "https://goo.gl/4YyPUH">2</img>
         "Bold, graphic, intentional.\n\n"
-
+        <video width="320" height="240">
+            <source src="https://www.youtube.com/watch?v=IDstw1_v5fs" type="video/mp4">3</source>
+        </video>
         "The foundational elements of print based design typography, grids, space, scale, color, "
         "and use of imagery guide visual treatments. These elements do far more than please the "
         "eye. They create hierarchy, meaning, and focus. Deliberate color choices, edge to edge "
@@ -123,6 +128,8 @@
         "On the layout level, design your app layout to minimize opportunities for interference. "
         "For example, position the FAB to one side of stream of a cards so the FAB won’t interfere "
         "when a user tries to pick up one of cards.\n\n"
+        </body></html>
     </string>
     <string name="Detail">Detail</string>
+    <string name="loading_video">Loading...</string>
 </resources>
