@@ -49,7 +49,6 @@ public class ViewsArrayAdapter extends ArrayAdapter<ViewsListItem> {
         TextView titleView = (TextView) rowView.findViewById(R.id.vListItemTitle);
         TextView previewView = (TextView) rowView.findViewById(R.id.vListItemPreview);
         TextView likesView = (TextView) rowView.findViewById(R.id.vListItemLikesNumber);
-        final RecyclerView tagsCloudView = rowView.findViewById(R.id.vListItemTagsCloudRecyclerView);
 //        ListView tagsCloudView = rowView.findViewById(R.id.vListItemTagsCloudListView);
         ImageView imageView = (ImageView) rowView.findViewById(R.id.vListItemTitleImageView);
         Button detail = (Button) rowView.findViewById(R.id.vListItemDetailButton);
@@ -72,6 +71,9 @@ public class ViewsArrayAdapter extends ArrayAdapter<ViewsListItem> {
         cardView.setCardBackgroundColor(Views.argbColor);
         new DownloadImageTask(imageView).execute(articlesList.get(position).getImgSrc());
 
+
+
+        final RecyclerView tagsCloudView = rowView.findViewById(R.id.vListItemTagsCloudRecyclerView);
         RecyclerView.ItemAnimator itemAnimator = new DefaultItemAnimator();
         tagsCloudView.setItemAnimator(itemAnimator);
 
@@ -89,7 +91,6 @@ public class ViewsArrayAdapter extends ArrayAdapter<ViewsListItem> {
 
                 Log.i("Tags item position is ",String.valueOf(itemPosition));
 
-//                Log.e("Tags item position is ",String.valueOf(itemPosition));
             }
         });
 //        cardView.setBackground(parent.getBackground());
