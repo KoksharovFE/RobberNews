@@ -11,7 +11,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="vertical">
 
 
@@ -33,11 +33,72 @@
             android:layout_height="match_parent" />
 
         <TextView
+            android:id="@+id/articleExpandPreview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Preview" />
+
+        <ru.astralight.koksharov.robbernews.containers.HTML5WebView
             android:id="@+id/articleExpandedWebView"
-            android:layout_width="401dp"
-            android:layout_height="69088dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_margin="@dimen/text_margin"
             android:text="@string/large_text" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="74dp">
+
+        <ImageView
+            android:id="@+id/articleExpandedLikeImage"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            app:srcCompat="@drawable/recommended32p"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+
+            <TextView
+                android:id="@+id/articleExpandedLikesNumber"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_alignParentTop="true"
+                android:layout_toEndOf="@+id/articleExpandedLikeImage"
+                android:layout_toRightOf="@+id/articleExpandedLikeImage"
+                android:text="0"
+                android:textSize="30sp" />
+
+            <TextView
+                android:id="@+id/articleExpandedAuthor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignTop="@+id/articleExpandedDateTime"
+                android:text="@string/Author"
+                android:layout_alignParentBottom="true" />
+
+            <TextView
+                android:id="@+id/articleExpandedPublished"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/articleExpandedLikeImage"
+                android:layout_toEndOf="@+id/articleExpandedLikesNumber"
+                android:text="@string/Published" />
+
+            <TextView
+                android:id="@+id/articleExpandedDateTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignTop="@+id/articleExpandedPublished"
+                android:layout_toRightOf="@+id/articleExpandedPublished"
+                android:text="@string/datetime" />
+        </RelativeLayout>
+
 
     </LinearLayout>
 

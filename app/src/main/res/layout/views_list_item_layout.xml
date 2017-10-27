@@ -54,7 +54,7 @@
                 android:layout_height="wrap_content">
 
                 <ImageView
-                    android:id="@+id/vListItemLikeImage"
+                    android:id="@+id/articleExpandedLikeImage"
                     android:layout_width="wrap_content"
                     android:layout_height="40dp"
                     app:srcCompat="@drawable/recommended32p"
@@ -67,8 +67,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="40dp"
                     android:layout_alignParentTop="true"
-                    android:layout_toEndOf="@+id/vListItemLikeImage"
-                    android:layout_toRightOf="@+id/vListItemLikeImage"
+                    android:layout_toEndOf="@+id/articleExpandedLikeImage"
+                    android:layout_toRightOf="@+id/articleExpandedLikeImage"
                     android:text="0"
                     android:textSize="30sp" />
 

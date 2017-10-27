@@ -20,8 +20,10 @@ import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -30,6 +32,7 @@ import ru.astralight.koksharov.robbernews.R;
 import ru.astralight.koksharov.robbernews.containers.HTML5WebView;
 import ru.astralight.koksharov.robbernews.containers.ViewsListItem;
 import ru.astralight.koksharov.robbernews.containers.ViewsListItemTagsAdapter;
+import ru.astralight.koksharov.robbernews.tasks.DownloadImageTask;
 
 public class ArticleExpanded extends AppCompatActivity {
 
@@ -62,6 +65,9 @@ public class ArticleExpanded extends AppCompatActivity {
         Cursor cursor = getContentResolver().query(RobberNewsContentProvider.PROVIDER_ARTICLE,
                 RobberNewsContentProvider.PROJECTION_ARTICLE,
                 RobberNewsContentProvider.COLUMN_ID + "= ? ", new String[]{String.valueOf(fName)}, RobberNewsContentProvider.COLUMN_LIKES_NUMBER);
+
+        Integer authorId = -1;
+
         if (cursor.moveToFirst()) {//todo theme filter, likes priority, data priority
             do {
                 Integer _id = cursor.getInt(cursor.getColumnIndex(RobberNewsContentProvider.COLUMN_ID));
@@ -73,60 +79,145 @@ public class ArticleExpanded extends AppCompatActivity {
                 String theme = cursor.getString(cursor.getColumnIndex(RobberNewsContentProvider.COLUMN_THEME));
                 Integer likes = cursor.getInt(cursor.getColumnIndex(RobberNewsContentProvider.COLUMN_LIKES_NUMBER));
                 Integer forumArticle = cursor.getInt(cursor.getColumnIndex(RobberNewsContentProvider.COLUMN_IS_FORUM_ARTICLE));
-                Integer authorId = cursor.getInt(cursor.getColumnIndex(RobberNewsContentProvider.COLUMN_AUTHOR_ID));
+                authorId = cursor.getInt(cursor.getColumnIndex(RobberNewsContentProvider.COLUMN_AUTHOR_ID));
                 String dateTime = cursor.getString(cursor.getColumnIndex(RobberNewsContentProvider.COLUMN_DATE_TIME));
 //                ViewsListItem item = new ViewsListItem(_id, title, preview, image, tagsCloud, likes);
+
+                //region Text Fields
+                TextView titleView = (TextView) findViewById(R.id.articleExpandTitle);
+                titleView.setText(title);
+
+                ImageView imageView = (ImageView) findViewById(R.id.articleExpandImage);
+                new DownloadImageTask(imageView).execute(image);
+
+                TextView preView = (TextView) findViewById(R.id.articleExpandPreview);
+                preView.setText(preview);
+
+                TextView themeView = (TextView) findViewById(R.id.articleExpandTheme);
+                themeView.setText(theme);
+
+                TextView likesView = (TextView) findViewById(R.id.articleExpandedLikesNumber);
+                likesView.setText(String.valueOf(likes));
+
+                TextView dateTimeView = (TextView) findViewById(R.id.articleExpandedDateTime);
+                dateTimeView.setText(dateTime);
+
+                //endregion
+
+                //region Tags Cloud
+                final RecyclerView tagsCloudView = (RecyclerView) findViewById(R.id.articleExpandTagsCloud);
+                RecyclerView.ItemAnimator itemAnimator = new DefaultItemAnimator();
+                tagsCloudView.setItemAnimator(itemAnimator);
+
+                ArrayList<String> tags = new ArrayList<String>();
+                if (tagsCloud != null) {
+                    Collections.addAll(tags, ViewsListItem.tagsCloudToTags( tagsCloud ));
+                }
+                tagsCloudView.setAdapter(
+                        new ViewsListItemTagsAdapter(tags));
+                tagsCloudView.setLayoutManager(new GridLayoutManager(this, 7));
+                tagsCloudView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        int itemPosition = tagsCloudView.indexOfChild(v);
+
+                        Log.i("Tags item position is ",String.valueOf(itemPosition));
+
+                    }
+                });
+                //endregion
+
+                //region Text
+                HTML5WebView webview = (HTML5WebView) this.findViewById(R.id.articleExpandedWebView);//todo return webview
+
+                WebSettings webSettings = webview.getSettings();
+                webSettings.setDefaultFontSize(48);
+                webSettings.setTextZoom(90);
+
+                webview.getSettings().setUseWideViewPort(true);
+                webview.getSettings().setLoadWithOverviewMode(true);
+
+                //EXAMPLE
+                String str = "      <html>\n" +
+                        "      <head>\n" +
+                        "         <meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\"/>\n" +
+                        "      <title>\n" +
+                        "      A Simple HTML Document\n" +
+                        "      </title>\n" +
+                        "      </head>\n" +
+                        "      <body>\n" +
+                        "      <p>This is a very simple HTML document</p><tr/>\n" +
+                        "      <p>Первый пример</p><br/>\n" +
+                        "          <img src=\"https://pp.userapi.com/c837239/v837239772/32bd9/IxjdAyHzJBg.jpg\"></img>\n" +
+                        "          <img src=\"D:\\proj\\RobberNews\\app\\src\\main\\res\\drawable\\image_stylished_chose2.jpg\"></img>\n" +
+                        "          <video>\n" +
+                        "            <source src=\"https://cloud.mail.ru/public/LdKx/GDZjx4rYt\" type='video/mp4; codecs=\"avc1.42E01E, mp4a.40.2\"' />\n" +
+                        "          </video>\n" +
+                        "          <video tabindex=\"-1\" class=\"video-stream html5-main-video\" controlslist=\"nodownload\" style=\"width: 640px; height: 360px; left: 0px; top: 0px; opacity: 1;\" src=\"blob:https://www.youtube.com/53f0f0b3-eee6-458b-9ede-9b8021671df1\"></video>\n" +
+                        "          <iframe width=\"420\" height=\"315\"\n" +
+                        "              src=\"https://www.youtube.com/watch?v=78r-DFnZo0M\">\n" +
+                        "          </iframe>\n" +
+                        "      <p>It only has two paragraphs</p>\n" +
+                        "      </body>\n" +
+                        "      </html>";
+
+                String script = "<script type=\"text/javascript\" src=\"Mobilize.js\"></script>";
+
+                str = str + script;
+
+                webview.getSettings().setJavaScriptEnabled(true);
+                webview.getSettings().setPluginState(WebSettings.PluginState.ON);
+                webview.getSettings().setJavaScriptCanOpenWindowsAutomatically(true);
+                webview.getSettings().setSupportMultipleWindows(true);
+                webview.getSettings().setSupportZoom(true);
+                webview.getSettings().setBuiltInZoomControls(true);
+                webview.getSettings().setAllowFileAccess(true);
+                webview.setWebChromeClient(new WebChromeClient());
+                webview.setWebViewClient(new WebViewClient());
+                webview.loadDataWithBaseURL(null, (text + script), "text/html; charset=UTF-8", "UTF-8", null);//str text
+                //endregion
+
+
             } while (cursor.moveToNext());
         }
+        cursor.close();
 
-        final RecyclerView tagsCloudView = (RecyclerView) findViewById(R.id.articleExpandTagsCloud);
-        RecyclerView.ItemAnimator itemAnimator = new DefaultItemAnimator();
-        tagsCloudView.setItemAnimator(itemAnimator);
-
-        ArrayList<String> tags = new ArrayList<String>();
-        if (articlesList.get(position).getTags() != null) {
-            Collections.addAll(tags, articlesList.get(position).getTags());
+        TextView authorView = (TextView) findViewById(R.id.articleExpandedAuthor);
+        authorView.setText("Author not exists#" + authorId);
+        try {
+            Cursor cursor2 = getContentResolver().query(RobberNewsContentProvider.PROVIDER_USER,
+                    RobberNewsContentProvider.PROJECTION_USER,
+                    RobberNewsContentProvider.COLUMN_ID + "= ? ",
+                    new String[]{String.valueOf(authorId)},
+                    null);
+            cursor2.moveToFirst();
+            Integer _uid = cursor.getInt(cursor.getColumnIndex(RobberNewsContentProvider.COLUMN_ID));
+            String username = cursor.getString(cursor.getColumnIndex(RobberNewsContentProvider.COLUMN_NAME));
+            String usersurname = cursor.getString(cursor.getColumnIndex(RobberNewsContentProvider.COLUMN_SURNAME));
+            authorView.setText(username + " " + usersurname + "#" + _uid);
+//                    if () {
+//                        do {
+//
+//                        } while (cursor2.moveToNext());
+//                    }
+            cursor2.close();
+        } catch (Exception ex){
+            Log.d("Author not exists","Author not exists#" + authorId);
         }
-        tagsCloudView.setAdapter(
-                new ViewsListItemTagsAdapter(tags));
-        tagsCloudView.setLayoutManager(new GridLayoutManager(this, 7));
-        tagsCloudView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int itemPosition = tagsCloudView.indexOfChild(v);
-
-                Log.i("Tags item position is ",String.valueOf(itemPosition));
-
-            }
-        });
 
         //data == html data which you want to load
-        TextView webview = (TextView)this.findViewById(R.id.articleExpandedWebView);//todo return webview
-
-        webview.setText(getString(R.string.html_example));
 
 
-//        webview.setWebChromeClient(new WebChromeClient());
-//        webview.setWebViewClient(new WebViewClient());
-//        webview.getSettings().setJavaScriptEnabled(true);
-//        webview.getSettings().setPluginState(WebSettings.PluginState.ON);
-//        webview.getSettings().setJavaScriptEnabled(true);
-//        webview.loadDataWithBaseURL("", getString(R.string.large_text), "text/html", "UTF-8", "");
 
-//        if (savedInstanceState != null) {
-//            webview.restoreState(savedInstanceState);
-//        } else {
-////            webview.loadUrl("https://stackoverflow.com/questions/3815090/webview-and-html5-video");
-////            webview.loadUrl("https://www.youtube.com/watch?v=b499NNNdRqw");
 //
-////            webview.loadData(Html.fromHtml(getString(R.string.html_example)), "text/html; charset=utf-8", "UTF-8");
-////            webview.loadDataWithBaseURL("about:blank", String.valueOf(Html.fromHtml(getString(R.string.html_example))),"text/html", "utf-8", null);
-//
-//            Spannable sp = new SpannableString("<?xml version=\"1.0\" encoding=\"UTF-8\" ?>" + Html.fromHtml(getString(R.string.html_example)));
-//            Linkify.addLinks(sp, Linkify.ALL);
-//            final String html = "<body>" + Html.toHtml(sp) + "</body>";
-//            webview.loadData(html, "text/html", "utf-8");
-//        }
+//        webview.setText(getString(R.string.html_example));
+
+
+
+//        webview.getSettings().setJavaScriptEnabled(true);
+
+//        webview.loadDataWithBaseURL(null, getString(R.string.html_example), "text/html; charset=UTF-8", "UTF-8", null);
+//        webview.loadData(getString(R.string.html_example), "text/html; charset=UTF-8", "UTF-8");
 
     }
 

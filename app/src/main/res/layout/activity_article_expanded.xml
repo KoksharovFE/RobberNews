@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
+    android:hardwareAccelerated="true"
     tools:context="ru.astralight.koksharov.robbernews.views.ArticleExpanded">
 
     <android.support.design.widget.AppBarLayout
@@ -28,6 +29,12 @@
                 android:layout_height="wrap_content"
                 app:layout_collapseMode="pin"
                 app:popupTheme="@style/AppTheme.PopupOverlay" />
+
+            <TextView
+                android:id="@+id/articleExpandTheme"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/Theme" />
 
         </android.support.design.widget.CollapsingToolbarLayout>
     </android.support.design.widget.AppBarLayout>
