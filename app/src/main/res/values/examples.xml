@@ -1,21 +1,3 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="html_example">
-      <html>
-      <head>
-      <title>
-      A Simple HTML Document
-      </title>
-      </head>
-      <body>
-      <p>This is a very simple HTML document</p>\n\n<tr/>
-      <p>This is a very simple HTML document</p>\n\n<br/>
-      <p>It only has two paragraphs</p>
-      </body>
-      </html>
-    </string>
-    <string name="html_example2">
-      <iframe src="./(51) Моральные теории войны — Арсений Куманьков - YouTube_files/iframe.html" style="display: none !important;" hidden=""></iframe>
-
-    </string>
 </resources>

@@ -72,11 +72,13 @@ public class ViewsListItem {
     }
 
     public static String[] tagsCloudToTags(String tagsCloud){
+        String[] tags = new String[]{};
         if (tagsCloud != null ){
-            String[] tags = (tagsCloud.replace(";","").split(" "));
+            tags = (tagsCloud.replace(";","").split(" "));
             for (int i = 0; i < tags.length; i++) {
                 tags[i] = "#" + tags[i];
             }
         }
+        return tags;
     }
 }
