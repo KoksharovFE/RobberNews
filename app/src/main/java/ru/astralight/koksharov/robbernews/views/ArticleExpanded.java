@@ -137,6 +137,7 @@ public class ArticleExpanded extends AppCompatActivity {
                 webview.getSettings().setUseWideViewPort(true);
                 webview.getSettings().setLoadWithOverviewMode(true);
 
+                //region Ex
                 //EXAMPLE
                 String str = "      <html>\n" +
                         "      <head>\n" +
@@ -162,6 +163,7 @@ public class ArticleExpanded extends AppCompatActivity {
                         "      </html>";
 
                 String script = "<script type=\"text/javascript\" src=\"Mobilize.js\"></script>";
+                //endregion
 
                 str = str + script;
 
@@ -189,12 +191,14 @@ public class ArticleExpanded extends AppCompatActivity {
                     RobberNewsContentProvider.PROJECTION_USER,
                     RobberNewsContentProvider.COLUMN_ID + "= ? ",
                     new String[]{String.valueOf(authorId)},
-                    null);
-            cursor2.moveToFirst();
-            Integer _uid = cursor.getInt(cursor.getColumnIndex(RobberNewsContentProvider.COLUMN_ID));
-            String username = cursor.getString(cursor.getColumnIndex(RobberNewsContentProvider.COLUMN_NAME));
-            String usersurname = cursor.getString(cursor.getColumnIndex(RobberNewsContentProvider.COLUMN_SURNAME));
-            authorView.setText(username + " " + usersurname + "#" + _uid);
+                    RobberNewsContentProvider.COLUMN_ID);
+            if (cursor.getCount() >= 1) {
+                cursor2.moveToFirst();
+                Integer _uid = cursor.getInt(cursor.getColumnIndex(RobberNewsContentProvider.COLUMN_ID));
+                String username = cursor.getString(cursor.getColumnIndex(RobberNewsContentProvider.COLUMN_NAME));
+                String usersurname = cursor.getString(cursor.getColumnIndex(RobberNewsContentProvider.COLUMN_SURNAME));
+                authorView.setText(username + " " + usersurname + "#" + _uid);
+            }
 //                    if () {
 //                        do {
 //
@@ -203,6 +207,7 @@ public class ArticleExpanded extends AppCompatActivity {
             cursor2.close();
         } catch (Exception ex){
             Log.d("Author not exists","Author not exists#" + authorId);
+            ex.printStackTrace();
         }
 
         //data == html data which you want to load
